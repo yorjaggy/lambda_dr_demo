@@ -1,0 +1,35 @@
+service: lambda-dr-demo
+
+frameworkVersion: '2'
+
+custom:
+  config: ${file(config/${env:DEMOSTAGE}.json)}
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: ${self:custom.config.stage}
+  region: ${self:custom.config.region}
+  lambdaHashingVersion: 20201221
+  environment:
+    DEMOSTAGE: ${self:custom.config.stage}
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+     - httpApi:
+         path: /hello
+         method: get
+
+plugins:
+  - serverless-offline
+
+package:
+  exclude:
+    - ./**
+    - 'node_modules/**'
+  excludeDevDependencies: true
+  include:
+    - handler.js
+    - config/**
