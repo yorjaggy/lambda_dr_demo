@@ -1,5 +1,6 @@
 {
     "stage": "dev2",
     "message":"I'm a simple message on DR region",
-    "region": "us-west-2"
+    "region": "us-west-2",
+    "healthUrl":"https://2p7m43xeqh.execute-api.us-west-2.amazonaws.com/health"
 }
