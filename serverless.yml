@@ -14,12 +14,12 @@ provider:
   environment:
     DEMOSTAGE: ${self:custom.config.stage}
 
-  # iamRoleStatements:
-  #   - Effect: Allow
-  #     Action:
-  #       - codedeploy:*
-  #     Resource:
-  #       - "*"
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - codedeploy:*
+      Resource:
+        - "*"
 
 functions:
   hello:
@@ -28,10 +28,10 @@ functions:
      - httpApi:
          path: /hello
          method: get
-    # deploymentSettings:
-    #   type: AllAtOnce
-    #   alias: Live
-    #   postTrafficHook: postHook
+    deploymentSettings:
+      type: AllAtOnce
+      alias: Live
+      postTrafficHook: postHook
 
   healthcheck:
     handler: src/hooks/healthCheck.healthCheck
@@ -41,8 +41,8 @@ functions:
          path: /healthcheck
          method: get
 
-  # postHook:
-  #   handler: src/hooks/rollbackHook.post
+  postHook:
+    handler: src/hooks/rollbackHook.post
 
 # resources:
 #   Resources:
