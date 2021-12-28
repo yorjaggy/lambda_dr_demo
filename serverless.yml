@@ -27,10 +27,10 @@ functions:
      - httpApi:
          path: /hello
          method: get
-    deploymentSettings:
-      type: AllAtOnce
-      alias: Live
-      postTrafficHook: postHook
+    # deploymentSettings:
+    #   type: AllAtOnce
+    #   alias: Live
+    #   postTrafficHook: postHook
 
   healthcheck:
     handler: src/hooks/healthCheck.healthCheck
@@ -40,39 +40,31 @@ functions:
          path: healthcheck
          method: get
 
-  postHook:
-    handler: src/hooks/rollbackHook.post
+  # postHook:
+  #   handler: src/hooks/rollbackHook.post
 
-resources:
-  Resources:
-    Route53HealthCheck:
-      Type: "AWS::Route53::HealthCheck"
-      Properties:
-        HealthCheckConfig:
-          Port: "443"
-          Type: "HTTPS"
-          Regions:
-            - us-east-1
-            - us-west-1
-            - us-west-2
-          ResourcePath: "/health"
-          FullyQualifiedDomainName:
-            Fn::Join:
-              - ""
-              - - Ref: 'ApiGatewayRestApi'
-                - ".execute-api."
-                - ${self:provider.region}
-                - ".amazonaws.com"
-        HealthCheckTags:
-          - Key: Name
-            Value: ${self:provider.stage}-${self:service}
+# resources:
+#   Resources:
+#     Route53HealthCheck:
+#       Type: "AWS::Route53::HealthCheck"
+#       Properties:
+#         HealthCheckConfig:
+#           Port: "443"
+#           Type: "HTTPS"
+#           Regions:
+#             - us-east-1
+#             - us-west-1
+#             - us-west-2
+#           FullyQualifiedDomainName: "https://bybqlu5q3f.execute-api.us-east-1.amazonaws.com"
+#           ResourcePath: "/health"
+#         HealthCheckTags:
+#           - Key: Name
+#             Value: ${self:provider.stage}-${self:service}
 
 package:
-  exclude:
-    - ./**
-    - 'node_modules/**'
-  excludeDevDependencies: true
-  include:
+  patterns:
+    - '!./**'
+    - '!node_modules/**'
     - handler.js
     - config/**
     - src/**
