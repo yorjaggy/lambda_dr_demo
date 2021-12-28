@@ -13,12 +13,13 @@ provider:
   lambdaHashingVersion: 20201221
   environment:
     DEMOSTAGE: ${self:custom.config.stage}
-  iamRoleStatements:
-    - Effect: Allow
-      Action:
-        - codedeploy:*
-      Resource:
-        - "*"
+
+  # iamRoleStatements:
+  #   - Effect: Allow
+  #     Action:
+  #       - codedeploy:*
+  #     Resource:
+  #       - "*"
 
 functions:
   hello:
@@ -37,7 +38,7 @@ functions:
     description: Simple healthcheck to test rollback
     events:
      - httpApi:
-         path: healthcheck
+         path: /healthcheck
          method: get
 
   # postHook:
