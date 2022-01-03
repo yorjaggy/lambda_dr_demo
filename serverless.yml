@@ -57,19 +57,22 @@ functions:
 #             - us-west-1
 #             - us-west-2
 #           FullyQualifiedDomainName: "https://bybqlu5q3f.execute-api.us-east-1.amazonaws.com"
-#           ResourcePath: "/health"
+#           ResourcePath: "/healthcheck"
 #         HealthCheckTags:
 #           - Key: Name
 #             Value: ${self:provider.stage}-${self:service}
 
 package:
+  # individually: true
+  excludeDevDependencies: false
   patterns:
-    - '!./**'
-    - '!node_modules/**'
+    #- '!./**'
     - handler.js
     - config/**
     - src/**
+    #- 'node_modules/**' #Automatically done by the serverless-plugin-include-dependencies
   
 plugins:
   - serverless-offline
   - serverless-plugin-canary-deployments
+  - serverless-plugin-inject-dependencies

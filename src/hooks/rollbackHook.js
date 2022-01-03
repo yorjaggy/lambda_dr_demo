@@ -20,6 +20,7 @@ module.exports.post = async (event) => {
     console.log(response);
     if (response.status === 200) {
       params.status = 'Succeeded';
+      //params.status = 'Failed';
     } else {
       params.status = 'Failed';
     }

@@ -2,5 +2,5 @@
     "stage": "dev1",
     "message": "I'm a simple message",
     "region": "us-east-1",
-    "healthUrl":"https://t26dki921j.execute-api.us-east-1.amazonaws.com/health"
+    "healthUrl":"https://t26dki921j.execute-api.us-east-1.amazonaws.com/healthcheck"
 }

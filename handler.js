@@ -10,7 +10,7 @@ module.exports.hello = async (event) => {
     statusCode: 200,
     body: JSON.stringify(
       {
-        hello: "world",
+        hello: "world - version 1",
         message: CONFIG.message,
         region: CONFIG.region,
       },
